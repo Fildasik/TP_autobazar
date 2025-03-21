@@ -2,6 +2,7 @@
     {
         "email": "fildaa@gmail.com",
         "password": "$2b$12$dIVry9v2WNTaMWWhdgdQ0O2qZlJsOEtLh59IN0HkgEdaEzN6wKi8u"
+<<<<<<< HEAD
     },
     {
         "email": "pepikk@gmail.com",
@@ -10,5 +11,7 @@
     {
         "email": "pepikk@gmail.com",
         "password": "$2b$12$sPvj0NqEOiarHqGWM/S6F./OZo4P5nVuxU5inrzb5t2s6.Tti0yTq"
+=======
+>>>>>>> bf243b741a4ea54f3a0e2c72b12103381165718d
     }
 ]

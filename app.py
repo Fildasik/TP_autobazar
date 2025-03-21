@@ -9,9 +9,13 @@ import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'toto_je_tajny_klic'
+<<<<<<< HEAD
 
 # Připojení k MySQL databázi (nahraď "tvuj_heslo" svým heslem)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:Filda942703@localhost/autobazar'
+=======
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///autobazar.db'
+>>>>>>> bf243b741a4ea54f3a0e2c72b12103381165718d
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
@@ -29,7 +33,11 @@ def create_tables():
     db.create_all()
 
 def log_user_login(user):
+<<<<<<< HEAD
     """Uloží do users.json záznam o přihlášeném uživateli (demo)."""
+=======
+    """Uloží do users.json záznam o přihlášeném uživateli."""
+>>>>>>> bf243b741a4ea54f3a0e2c72b12103381165718d
     login_data = {"email": user.username, "password": user.password}
     if os.path.exists('users.json'):
         with open('users.json', 'r') as f:
@@ -70,6 +78,10 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=True)
+<<<<<<< HEAD
+=======
+            # Uložení přihlášeného uživatele do users.json
+>>>>>>> bf243b741a4ea54f3a0e2c72b12103381165718d
             log_user_login(user)
             flash('Přihlášeno!', 'success')
             return redirect(url_for('home'))
@@ -110,6 +122,7 @@ brand_models = {
 @app.route('/add_car', methods=['GET', 'POST'])
 @login_required
 def add_car():
+<<<<<<< HEAD
     if request.method == 'POST':
         # 1) Z request.form dostaneme surové hodnoty:
         raw_price = request.form.get('price', '')
@@ -154,6 +167,37 @@ def add_car():
 
     # Pokud metoda není POST (tj. GET), tak prostě zobrazíme prázdný formulář
     form = CarForm()
+=======
+    form = CarForm()
+    selected_brand = request.form.get('brand')
+    if selected_brand in brand_models:
+        form.model.choices = [(m, m) for m in brand_models[selected_brand]]
+    else:
+        form.model.choices = []
+
+    # Odstranění čárek z ceny a km před validací
+    if request.method == 'POST':
+        raw_price = request.form.get('price', '').replace(',', '')
+        raw_mileage = request.form.get('mileage', '').replace(',', '')
+        request.form = request.form.copy()
+        request.form['price'] = raw_price
+        request.form['mileage'] = raw_mileage
+
+    if form.validate_on_submit():
+        new_car = Car(
+            brand=form.brand.data,
+            model=form.model.data,
+            year=form.year.data,
+            price=form.price.data,
+            mileage=form.mileage.data,
+            owner_id=current_user.id
+        )
+        db.session.add(new_car)
+        db.session.commit()
+        flash('Auto přidáno.', 'success')
+        return redirect(url_for('my_cars'))
+
+>>>>>>> bf243b741a4ea54f3a0e2c72b12103381165718d
     return render_template('add_car.html', form=form)
 
 @app.route('/my_cars')

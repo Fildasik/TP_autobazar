@@ -4,7 +4,11 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/templates" isTestSource="false" />
     </content>
+<<<<<<< HEAD
     <orderEntry type="jdk" jdkName="Python 3.13 (TP_autobazar-main)" jdkType="Python SDK" />
+=======
+    <orderEntry type="jdk" jdkName="Python 3.13" jdkType="Python SDK" />
+>>>>>>> bf243b741a4ea54f3a0e2c72b12103381165718d
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

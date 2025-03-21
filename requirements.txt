@@ -3,4 +3,7 @@ Flask-SQLAlchemy==3.0.5
 Flask-Bcrypt==1.0.1
 Flask-Login==0.6.2
 Werkzeug==2.2.3
+<<<<<<< HEAD
 mysql-connector-python==8.0.33
+=======
+>>>>>>> bf243b741a4ea54f3a0e2c72b12103381165718d

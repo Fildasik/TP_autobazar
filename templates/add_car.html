@@ -32,8 +32,12 @@
 
       <div class="mb-3">
         {{ form.price.label(class="form-label") }}
+<<<<<<< HEAD
         <!-- Přepíšeme, aby byl typ text -->
         {{ form.price(type="text", class="form-control", id="priceInput") }}
+=======
+        {{ form.price(class="form-control", id="priceInput") }}
+>>>>>>> bf243b741a4ea54f3a0e2c72b12103381165718d
         {% for error in form.price.errors %}
           <small class="text-danger">{{ error }}</small><br>
         {% endfor %}
@@ -41,8 +45,12 @@
 
       <div class="mb-3">
         {{ form.mileage.label(class="form-label") }}
+<<<<<<< HEAD
         <!-- Přepíšeme, aby byl typ text -->
         {{ form.mileage(type="text", class="form-control", id="mileageInput") }}
+=======
+        {{ form.mileage(class="form-control", id="mileageInput") }}
+>>>>>>> bf243b741a4ea54f3a0e2c72b12103381165718d
         {% for error in form.mileage.errors %}
           <small class="text-danger">{{ error }}</small><br>
         {% endfor %}
@@ -54,7 +62,10 @@
 </div>
 
 <script>
+<<<<<<< HEAD
   // Mapa značek -> modelů (stejné jako dřív)
+=======
+>>>>>>> bf243b741a4ea54f3a0e2c72b12103381165718d
   const brandModels = {
     "skoda": ["Octavia", "Superb", "Fabia", "Kamiq", "Karoq", "Kodiaq", "Scala"],
     "porsche": ["911", "Panamera", "Cayenne", "Macan", "Taycan", "Boxster", "718 Spyder"],
@@ -96,6 +107,7 @@
   brandSelect.addEventListener("change", updateModelOptions);
   window.addEventListener("load", updateModelOptions);
 
+<<<<<<< HEAD
   // -- Formátování s čárkami (1,000,000) --
   function formatWithCommas(input) {
     // 1) Zachovej jen číslice
@@ -108,12 +120,25 @@
     let number = parseInt(digits, 10);
     // 3) Zpátky do inputu s čárkami
     input.value = number.toLocaleString('en-US');
+=======
+  function formatNumberInput(input) {
+    let onlyDigits = input.value.replace(/\D/g, '');
+    if (onlyDigits) {
+      onlyDigits = parseInt(onlyDigits, 10).toLocaleString('en-US');
+    }
+    input.value = onlyDigits;
+>>>>>>> bf243b741a4ea54f3a0e2c72b12103381165718d
   }
 
   const priceInput = document.getElementById("priceInput");
   const mileageInput = document.getElementById("mileageInput");
 
+<<<<<<< HEAD
   priceInput.addEventListener("input", () => formatWithCommas(priceInput));
   mileageInput.addEventListener("input", () => formatWithCommas(mileageInput));
+=======
+  priceInput.addEventListener("input", () => formatNumberInput(priceInput));
+  mileageInput.addEventListener("input", () => formatNumberInput(mileageInput));
+>>>>>>> bf243b741a4ea54f3a0e2c72b12103381165718d
 </script>
 {% endblock %}
