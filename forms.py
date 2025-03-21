@@ -72,4 +72,15 @@ class CarForm(FlaskForm):
         DataRequired(),
         NumberRange(min=1900, max=2025, message='Rok 1900–2025.')
     ])
+
+    # Nová pole
+    price = IntegerField('Cena (Kč)', validators=[
+        DataRequired(),
+        NumberRange(min=0, message='Cena musí být 0 nebo více.')
+    ])
+    mileage = IntegerField('Najeté km', validators=[
+        DataRequired(),
+        NumberRange(min=0, message='Najeté km musí být 0 nebo více.')
+    ])
+
     submit = SubmitField('Přidat auto')

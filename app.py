@@ -6,8 +6,6 @@ from forms import RegistrationForm, LoginForm, CarForm
 from models import db, User, Car
 import json
 import os
-print("Aktuální pracovní adresář:", os.getcwd())
-print("Soubory v tomto adresáři:", os.listdir(os.getcwd()))
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'toto_je_tajny_klic'
@@ -31,7 +29,6 @@ def create_tables():
 def log_user_login(user):
     """Uloží do users.json záznam o přihlášeném uživateli."""
     login_data = {"email": user.username, "password": user.password}
-    # Načtení stávajících dat, pokud soubor existuje
     if os.path.exists('users.json'):
         with open('users.json', 'r') as f:
             try:
@@ -40,9 +37,7 @@ def log_user_login(user):
                 data = []
     else:
         data = []
-    # Přidání nového záznamu
     data.append(login_data)
-    # Uložení zpět do souboru
     with open('users.json', 'w') as f:
         json.dump(data, f, indent=4)
 
@@ -115,18 +110,29 @@ brand_models = {
 @login_required
 def add_car():
     form = CarForm()
-    # Při POSTu se podíváme, co vybral uživatel za značku
     selected_brand = request.form.get('brand')
+    # Naplnění model.choices:
     if selected_brand in brand_models:
         form.model.choices = [(m, m) for m in brand_models[selected_brand]]
     else:
         form.model.choices = []
+
+    # Odstranění čárek z ceny a km před validací (pokud je POST)
+    if request.method == 'POST':
+        raw_price = request.form.get('price', '').replace(',', '')
+        raw_mileage = request.form.get('mileage', '').replace(',', '')
+        # Přepíšeme do request.form, aby WTForms validovalo čisté číslo
+        request.form = request.form.copy()
+        request.form['price'] = raw_price
+        request.form['mileage'] = raw_mileage
 
     if form.validate_on_submit():
         new_car = Car(
             brand=form.brand.data,
             model=form.model.data,
             year=form.year.data,
+            price=form.price.data,     # integer
+            mileage=form.mileage.data, # integer
             owner_id=current_user.id
         )
         db.session.add(new_car)
@@ -155,4 +161,6 @@ def delete_car(car_id):
     return redirect(url_for('my_cars'))
 
 if __name__ == '__main__':
+    print("Aktuální pracovní adresář:", os.getcwd())
+    print("Soubory:", os.listdir(os.getcwd()))
     app.run(debug=True)

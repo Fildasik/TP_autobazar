@@ -8,7 +8,9 @@
         {% for car in cars %}
           <li class="list-group-item d-flex justify-content-between align-items-center">
             <div>
-              <strong>{{ car.brand }}</strong> - {{ car.model }} ({{ car.year }})
+              <strong>{{ car.brand }}</strong> - {{ car.model }} ({{ car.year }})<br>
+              Cena: {{ "{:,}".format(car.price) }} Kč<br>
+              Najeté km: {{ "{:,}".format(car.mileage) }}
             </div>
             <form action="{{ url_for('delete_car', car_id=car.id) }}" method="POST">
               <button type="submit" class="btn btn-danger btn-sm">Smazat</button>

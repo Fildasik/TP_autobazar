@@ -22,10 +22,9 @@ class Car(db.Model):
     year = db.Column(db.Integer, nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
-    # Nové sloupce:
+    # Nové sloupce
     price = db.Column(db.Integer, nullable=False, default=0)
     mileage = db.Column(db.Integer, nullable=False, default=0)
 
     def __repr__(self):
         return f"Car('{self.brand}', '{self.model}', {self.year})"
-
