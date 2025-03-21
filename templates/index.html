@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div class="hero-content text-center">
+    <h1 class="display-3">🚙 Vítejte! 🚗</h1>
+    <p class="my-3">
+      Prohlédněte si náš online autobazar nebo přidejte vlastní inzerát.
+    </p>
+    <hr class="my-4">
+    {% if not current_user.is_authenticated %}
+      <p>Zaregistrujte se nebo se přihlaste:</p>
+      <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg mx-1">Registrovat se</a>
+      <a href="{{ url_for('login') }}" class="btn btn-secondary btn-lg mx-1">Přihlásit se</a>
+    {% else %}
+      <p>Pro správu vlastních aut klikněte na <strong>Moje auta</strong> v menu.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

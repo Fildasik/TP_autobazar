@@ -1,0 +1,51 @@
+/* Hero sekce */
+.hero {
+  background: linear-gradient(135deg, #d1e8ff 0%, #ffffff 70%);
+  padding: 3rem 1rem;
+  margin-bottom: 2rem;
+  border-radius: 10px;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+/* Navbar brand s emoji */
+.navbar-brand-emoji {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Custom alerty - menší, decentnější */
+.custom-alert {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  border-radius: 0.3rem;
+}
+
+/* Barevné varianty alertů */
+.alert-success.custom-alert {
+  background-color: #e7f9e7;
+  color: #2d5f2d;
+  border-color: #2d5f2d;
+}
+
+.alert-info.custom-alert {
+  background-color: #e7f2f9;
+  color: #2d4f5f;
+  border-color: #2d4f5f;
+}
+
+.alert-danger.custom-alert {
+  background-color: #f8d1d1;
+  color: #a94442;
+  border-color: #a94442;
+}
