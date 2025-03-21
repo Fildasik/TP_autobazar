@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Autobazar</title>
+  <!-- Bootstrap 5 (CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Vlastní CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="bg-light">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand navbar-brand-emoji" href="{{ url_for('home') }}">🚗 Autobazar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Přepnout navigaci">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('add_car') }}">Přidat auto</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('my_cars') }}">Moje auta</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('logout') }}">Odhlásit se</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('login') }}">Přihlásit se</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('register') }}">Registrovat se</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container my-4">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} custom-alert alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </div>
+
+  <!-- Bootstrap 5 script (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Automatické schování alertů po 3s (volitelně) -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const alerts = document.querySelectorAll('.alert');
+      setTimeout(() => {
+        alerts.forEach(alert => {
+          alert.classList.remove('show'); // skryje alert
+        });
+      }, 3000);
+    });
+  </script>
+
+</body>
+</html>

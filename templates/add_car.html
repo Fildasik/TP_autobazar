@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <h2 class="my-4">Přidat auto</h2>
+    <form method="POST">
+      {{ form.hidden_tag() }}
+
+      <div class="mb-3">
+        {{ form.brand.label(class="form-label") }}
+        {{ form.brand(class="form-select", id="brandSelect") }}
+        {% for error in form.brand.errors %}
+          <small class="text-danger">{{ error }}</small><br>
+        {% endfor %}
+      </div>
+
+      <div class="mb-3">
+        {{ form.model.label(class="form-label") }}
+        {{ form.model(class="form-select", id="modelSelect") }}
+        {% for error in form.model.errors %}
+          <small class="text-danger">{{ error }}</small><br>
+        {% endfor %}
+      </div>
+
+      <div class="mb-3">
+        {{ form.year.label(class="form-label") }}
+        {{ form.year(class="form-control") }}
+        {% for error in form.year.errors %}
+          <small class="text-danger">{{ error }}</small><br>
+        {% endfor %}
+      </div>
+
+      {{ form.submit(class="btn btn-primary") }}
+    </form>
+  </div>
+</div>
+
+<!-- JavaScript pro dynamické modely -->
+<script>
+  const brandModels = {
+    "skoda": ["Octavia", "Superb", "Fabia", "Kamiq", "Karoq", "Kodiaq", "Scala"],
+    "porsche": ["911", "Panamera", "Cayenne", "Macan", "Taycan", "Boxster", "718 Spyder"],
+    "vw": ["Golf", "Passat", "Tiguan", "Touran", "Polo", "Arteon", "T-Roc"],
+    "bmw": ["3 Series", "5 Series", "7 Series", "X3", "X5", "i3", "i8"],
+    "mercedes": ["C-Class", "E-Class", "S-Class", "GLE", "GLC", "A-Class", "CLA"],
+    "toyota": ["Corolla", "Camry", "RAV4", "Yaris", "Highlander", "Prius", "C-HR"],
+    "honda": ["Civic", "Accord", "CR-V", "HR-V", "Jazz", "Pilot", "Odyssey"],
+    "ford": ["Focus", "Mondeo", "Fiesta", "Mustang", "Kuga", "Explorer", "Edge"],
+    "audi": ["A3", "A4", "A6", "Q5", "Q7", "Q8", "TT"],
+    "hyundai": ["i30", "i20", "Tucson", "Santa Fe", "Kona", "Sonata", "Elantra"],
+    "kia": ["Ceed", "Sportage", "Rio", "Sorento", "Stonic", "Optima", "Picanto"],
+    "renault": ["Clio", "Megane", "Captur", "Kadjar", "Scenic", "Talisman", "Laguna"],
+    "nissan": ["Qashqai", "Juke", "X-Trail", "Micra", "Leaf", "Navara", "GT-R"],
+    "peugeot": ["208", "308", "508", "2008", "3008", "5008", "Rifter"],
+    "mazda": ["Mazda2", "Mazda3", "Mazda6", "CX-3", "CX-5", "MX-5", "CX-30"],
+    "jeep": ["Wrangler", "Renegade", "Compass", "Cherokee", "Grand Cherokee", "Gladiator"],
+    "tesla": ["Model S", "Model 3", "Model X", "Model Y", "Roadster"],
+    "ferrari": ["488", "812 Superfast", "Portofino", "F8 Tributo", "SF90 Stradale", "Roma"],
+    "lamborghini": ["Huracán", "Aventador", "Urus", "Gallardo", "Murciélago", "Sian", "Diablo"],
+    "volvo": ["XC40", "XC60", "XC90", "S60", "S90", "V60", "V90"]
+  };
+
+  const brandSelect = document.getElementById("brandSelect");
+  const modelSelect = document.getElementById("modelSelect");
+
+  function updateModelOptions() {
+    const selectedBrand = brandSelect.value;
+    const models = brandModels[selectedBrand] || [];
+    modelSelect.innerHTML = "";
+    models.forEach(model => {
+      const option = document.createElement("option");
+      option.value = model;
+      option.textContent = model;
+      modelSelect.appendChild(option);
+    });
+  }
+
+  brandSelect.addEventListener("change", updateModelOptions);
+  window.addEventListener("load", updateModelOptions);
+</script>
+{% endblock %}
