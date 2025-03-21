@@ -73,7 +73,6 @@ class CarForm(FlaskForm):
         NumberRange(min=1900, max=2025, message='Rok 1900–2025.')
     ])
 
-    # Nová pole
     price = IntegerField('Cena (Kč)', validators=[
         DataRequired(),
         NumberRange(min=0, message='Cena musí být 0 nebo více.')

@@ -59,13 +59,12 @@
   <!-- Bootstrap 5 script (CDN) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Automatické schování alertů po 3s (volitelně) -->
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       const alerts = document.querySelectorAll('.alert');
       setTimeout(() => {
         alerts.forEach(alert => {
-          alert.classList.remove('show'); // skryje alert
+          alert.classList.remove('show');
         });
       }, 3000);
     });

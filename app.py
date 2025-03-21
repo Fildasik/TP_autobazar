@@ -111,17 +111,15 @@ brand_models = {
 def add_car():
     form = CarForm()
     selected_brand = request.form.get('brand')
-    # Naplnění model.choices:
     if selected_brand in brand_models:
         form.model.choices = [(m, m) for m in brand_models[selected_brand]]
     else:
         form.model.choices = []
 
-    # Odstranění čárek z ceny a km před validací (pokud je POST)
+    # Odstranění čárek z ceny a km před validací
     if request.method == 'POST':
         raw_price = request.form.get('price', '').replace(',', '')
         raw_mileage = request.form.get('mileage', '').replace(',', '')
-        # Přepíšeme do request.form, aby WTForms validovalo čisté číslo
         request.form = request.form.copy()
         request.form['price'] = raw_price
         request.form['mileage'] = raw_mileage
@@ -131,8 +129,8 @@ def add_car():
             brand=form.brand.data,
             model=form.model.data,
             year=form.year.data,
-            price=form.price.data,     # integer
-            mileage=form.mileage.data, # integer
+            price=form.price.data,
+            mileage=form.mileage.data,
             owner_id=current_user.id
         )
         db.session.add(new_car)
